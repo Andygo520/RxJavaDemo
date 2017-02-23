@@ -10,5 +10,5 @@ import retrofit2.http.Path;
  */
 public interface DouBanApi {
      @GET("v2/movie/subject/{id}")
-     public Observable<Movie> getBook(@Path("id") int id);
+     public Observable<Movie> getMovie(@Path("id") int id);
 }

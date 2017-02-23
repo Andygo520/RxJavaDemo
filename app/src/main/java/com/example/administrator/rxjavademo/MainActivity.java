@@ -5,8 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +18,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
@@ -37,11 +36,10 @@ public class MainActivity extends AppCompatActivity {
                 .client(new OkHttpClient())
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
-                //Retrofit暂不支持RxJava2.0，需要引入'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         DouBanApi api = retrofit.create(DouBanApi.class);
-        api.getBook(1764796)//传入电影id得到发送Movie事件的observable
+        api.getMovie(3206354)//传入电影id得到发送Movie事件的observable
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Movie>() {
